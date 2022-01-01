@@ -3,6 +3,7 @@
 $id_user = 0;
 $nameSerie = '';
 $codeErr = 0;
+$cont = 0;
 
 include 'conexion.php';
 
@@ -216,7 +217,7 @@ function editSerie($conexion)
 //Funcion para establecer la serie actual
 function setActual($conexion)
 {
-    global $id_user, $nameSerie, $codeErr;
+    global $id_user, $nameSerie, $codeErr, $cont;
 
     if (isset($_GET['usuario']) && isset($_GET['serie'])) {
         $usuario = $_GET['usuario'];
@@ -233,7 +234,8 @@ function setActual($conexion)
                 $resultado = mysqli_query($conexion, $Query);
 
                 if ($resultado >= 1) {
-                    $Query2 = " UPDATE series SET activo = '1' WHERE series.serie = '" . $nameSerie . "' AND series.id_user = '" . $id_user . "'; ";
+                    $cont += 1;
+                    $Query2 = " UPDATE series SET activo = '1', dia = '" . $cont . "' WHERE series.serie = '" . $nameSerie . "' AND series.id_user = '" . $id_user . "'; ";
                     $res = mysqli_query($conexion, $Query2);
 
                     if ($res >= 1) {
